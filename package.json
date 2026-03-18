@@ -1,7 +1,10 @@
 {
-  "name": "memecoin-screener",
+  "name": "base-memescan",
   "version": "1.0.0",
-  "description": "Real-time memecoin screener powered by Nansen AI",
+  "description": "Live memecoin scanner for Base chain",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,8 +17,8 @@
     "recharts": "^2.10.4"
   },
   "devDependencies": {
-    "@types/node": "20.19.37",
-    "@types/react": "18.3.28",
-    "typescript": "5.9.3"
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "typescript": "^5.3.3"
   }
 }
