@@ -1,11 +1,17 @@
-import data from '../data/nansen-memecoins.json'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Cache-Control', 's-maxage=60')
   
   try {
-    // Parse data from JSON file
+    // Read JSON file
+    const filePath = join(process.cwd(), 'data', 'nansen-memecoins.json')
+    const fileContents = readFileSync(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
+    
+    // Parse tokens
     const tokens = data.data?.data?.slice(0, 50).map(t => ({
       symbol: t.token_symbol || 'UNKNOWN',
       name: t.token_name || '',
@@ -23,6 +29,7 @@ export default async function handler(req, res) {
       count: tokens.length
     })
   } catch (error) {
-    res.status(500).json({ error: 'Failed to load data' })
+    console.error('Error:', error)
+    res.status(500).json({ error: error.message })
   }
 }
