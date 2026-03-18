@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/tokens.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    { "source": "/api/tokens", "destination": "/api/tokens.js" }
+  ]
+}
