@@ -6,5 +6,8 @@
   },
   "rewrites": [
     { "source": "/api/tokens", "destination": "/api/tokens.js" }
+  ],
+  "includeFiles": [
+    "data/nansen-memecoins.json"
   ]
 }
