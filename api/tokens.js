@@ -1,13 +1,15 @@
+import { readFileSync } from 'fs'
+import { join } from 'path'
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Cache-Control', 's-maxage=60')
   
   try {
-    // Fetch from public URL (static file)
-    const protocol = req.headers['x-forwarded-proto'] || 'https'
-    const host = req.headers.host
-    const response = await fetch(`${protocol}://${host}/nansen-memecoins.json`)
-    const data = await response.json()
+    // Read JSON directly from public folder
+    const filePath = join(process.cwd(), 'public', 'nansen-memecoins.json')
+    const fileContents = readFileSync(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
     
     // Parse tokens
     const tokens = data.data?.data?.slice(0, 50).map(t => ({
@@ -28,6 +30,6 @@ export default async function handler(req, res) {
     })
   } catch (error) {
     console.error('Error:', error)
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message, stack: error.stack })
   }
 }
